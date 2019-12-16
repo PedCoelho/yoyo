@@ -3,7 +3,6 @@ body{
     font-family: 'Open Sans';
     font-size: large;
     color: rgb(34, 34, 34);
-    background: white;
     background: #5752a1;
     display: flex;
     flex-flow: column;
@@ -11,6 +10,7 @@ body{
     text-align: center;
     overflow: auto;
     scroll-behavior: smooth;
+    transition: all .2s ease;
 }
 
 h2{
@@ -55,4 +55,19 @@ margin-bottom: 5px;
 }
 .playerTwo{
     background: #faaf40;
+}
+
+@media (max-width: 768px) {
+
+.wrapper{
+    width: 90%;
+}
+h2{
+    overflow-wrap: break-word;
+    white-space: normal;
+    font-size: medium;
+}
+p, h3{
+    font-size: medium;
+}
 }

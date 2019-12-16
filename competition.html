@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="Content-Language" content="pt-br">
+    <title>Yoyo Competition</title>
+    <link rel="stylesheet" type="text/css" href="./css/v2.css">
+    <link rel="stylesheet" type="text/css" href="./css/flipclock.css">
+    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
+    <link rel="icon" href="./favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,800|Permanent+Marker&display=swap"
+        rel="stylesheet">
+    <script src="./js/jquery-3.4.1.min.js"></script>
+</head>
+
+<body>
+    <img id="badge1" class="player-badge first-badge" src="./img/player1.png">
+    <img id="badge2" class="player-badge second-badge" src="./img/player2.png">
+    <main>
+        <section class="player1-section">
+            <section class="placar-total">
+                <h1>65</h1>
+            </section>
+            <section class="container-pontos">
+                <div class="jogada" data-aos="fade-up">
+                    <p>+15 pts</p><img class="palmas hidden" src="./img/palmas.png">
+                </div>
+                <div class="jogada purple-highlight">
+                    <p>+35 pts</p><img class="palmas visible" src="./img/palmas.png">
+                </div>
+                <div class="jogada">
+                    <p>+15 pts</p><img class="palmas hidden" src="./img/palmas.png">
+                </div>
+                <div class="jogada">
+                    <p>+10 pts</p><img class="palmas hidden" src="./img/palmas.png">
+                </div>
+            </section>
+        </section>
+        <section class="center-section">
+            <img id="yoyo-master-img" src="./img/player.png">
+
+            <section class="container-center">
+                <h3>Não durma no ponto<br>e mostre do que você é capaz!</h3>
+                <p>Você tem 3 minutos para deixar o ioiô dormindo por mais tempo do que seu adversário e vencer com mais
+                    pontos!</p>
+                <!-- <h1>00:00</h1> -->
+                <div class="clock"></div>
+                <button id="play">JOGAR!</button>
+                <button id="reset">RESET</button>
+            </section>
+        </section>
+
+        <section class="player2-section">
+            <section class="placar-total">
+                <h1>120</h1>
+            </section>
+            <section class="container-pontos">
+                <div class="jogada">
+                    <p>+2 pts</p><img class="palmas hidden" src="./img/palmas.png">
+                </div>
+                <div class="jogada">
+                    <p>+3 pts</p><img class="palmas hidden" src="./img/palmas.png">
+                </div>
+                <div class="jogada purple-highlight">
+                    <p>+3 pts</p><img class="palmas visible" src="./img/palmas.png">
+                </div>
+                <div class="jogada">
+                    <p>+15 pts</p><img class="palmas hidden" src="./img/palmas.png">
+                </div>
+                <div class="jogada">
+                    <p>+5 pts</p><img class="palmas hidden" src="./img/palmas.png">
+                </div>
+                <div class="jogada purple-highlight">
+                    <p>+30 pts</p><img class="palmas visible" src="./img/palmas.png">
+                </div>
+                <div class="jogada">
+                    <p>+10 pts</p><img class="palmas hidden" src="./img/palmas.png">
+                </div>
+                <div class="jogada purple-highlight">
+                    <p>+45 pts</p><img class="palmas visible" src="./img/palmas.png">
+                </div>
+            </section>
+        </section>
+    </main>
+
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+    <script>
+        AOS.init();
+    </script>
+
+    <script src="./js/v2/gameManager.js"></script>
+    <script src="./js/v2/flipclock.min.js"></script>
+    <script src="./js/v2/clock.js"></script>
+</body>
+
+</html>

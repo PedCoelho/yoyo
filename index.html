@@ -3,17 +3,19 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="4">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta http-equiv="Content-Language" content="pt-br">
     <title>Smart YOYO - Stats</title>
-    <link rel="stylesheet" type="text/css" href="./style.css">
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <script src="./jquery-3.4.1.min.js"></script>
+    <link rel="shortcut icon" href="./img/fav.png" />
+    <script src="./js/jquery-3.4.1.min.js"></script>
+
 </head>
 
 <body id="corpo">
+
     <div class="wrapper" data-aos="fade-up">
         <h2>Terça 28 de Novembro de 2019 - 17:38:22pm</h2>
         <div class='container playerOne'>
@@ -36,40 +38,12 @@
         AOS.init();
     </script>
 
-    <script type="text/javascript">
-        var element;
-        var lastWrapper;
-        var scrolled = false;
+    <script src="./js/updateScroll.js"></script>
+    <script src="./js/jsonFetcher.js"></script>
 
-        function updateScroll() {
-
-            if (!scrolled) {
-                lastWrapper = $('.wrapper');
-                last = lastWrapper[lastWrapper.length - 1];
-
-                $('html, body').animate({
-                    scrollTop: ($(last).offset().top)
-                }, 800);
-            }
-        }
-
-        $(window).on('scroll', function () {
-            scrolled = true;
-        });
-
-        setInterval(updateScroll, 1000);
-    </script>
-    <script src="./jsonFetcher.js"></script>
-
-    <!-- The core Firebase JS SDK is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-app.js"></script>
-
-    <!-- TODO: Add SDKs for Firebase products that you want to use
-     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <!-- <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-analytics.js"></script>
-
     <script>
-        // Your web app's Firebase configuration
         var firebaseConfig = {
             apiKey: "AIzaSyCkuvMqA-SpP4DTVyrUHxRwFOv93vQrgKc",
             authDomain: "syoyo-6a614.firebaseapp.com",
@@ -80,8 +54,7 @@
             appId: "1:40935329510:web:24c703646cd2997a477527",
             measurementId: "G-DL6J6TF8VL"
         };
-        // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
         firebase.analytics();
-    </script>
+    </script> -->
 </body>

@@ -1,0 +1,276 @@
+body {
+    background: url("../img/background.svg") no-repeat;
+    background-size: cover;
+    padding: 0;
+    margin: 0;
+    font-family: 'Open Sans';
+}
+
+
+main {
+    display: flex;
+    flex-flow: row;
+    /* overflow: hidden; */
+}
+
+h1 {
+    margin: 0px 60px;
+    transition: all .2s ease;
+
+}
+
+.player1-section {
+    /* border: 2px solid blue; */
+    width: 25%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    color: white;
+}
+
+.player2-section {
+    /* border: 2px solid blue; */
+    width: 25%;
+    height: 100vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    color: black;
+    text-align: right;
+}
+
+
+
+.player-badge {
+    display: block;
+    position: fixed;
+    width: 150px;
+    top: 60px;
+    transition: all .2s ease;
+    animation: bounce .5s infinite alternate;
+}
+
+
+@keyframes bounce {
+    from {
+        transform: translateY(0px);
+    }
+
+    to {
+        transform: translateY(-25px);
+    }
+}
+
+@-webkit-keyframes bounce {
+    from {
+        transform: translateY(0px);
+    }
+
+    to {
+        transform: translateY(-25px);
+    }
+}
+
+.first-badge {
+    left: 70px;
+}
+
+.second-badge {
+    right:70px;
+}
+
+.placar-total {
+    font-size: 150px;
+    font-family: 'Open Sans Extrabold';
+    font-weight: 800;
+    cursor: default;
+    transition: all .2s ease;
+
+}
+
+.container-pontos {
+    padding: 0px 70px 80px;
+    font-size: 35px;
+    font-family: 'Open Sans';
+    font-weight: bold;
+    height: 340px;
+    overflow-y: hidden;
+    display: flex;
+    flex-flow: column;
+    justify-content: flex-end;
+    /* border: 2px solid red; */
+    cursor: default;
+    transition: all .2s ease;
+
+}
+
+.container-pontos p {
+    margin: 20px 0px;
+}
+
+.jogada {
+    border-bottom: 1px solid white;
+    /* border: 1px solid blue; */
+    height: 25%;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    transition: all .2s ease;
+}
+
+.player2-section .jogada {
+    flex-flow: row-reverse;
+    margin-left: auto;
+    border-bottom: 1px solid #b5b5b5
+}
+
+.player1-section img {
+    margin-left: 20px;
+    width: 70px;
+
+}
+
+.player2-section img {
+    margin-right: 20px;
+    width: 70px;
+}
+
+.center-section {
+    background: url("../img/title.png") no-repeat top 60px center;
+    background-size: 70%;
+    /* border: 2px solid blue; */
+    width: 50%;
+    position: relative;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    /* border: 2px solid red; */
+    text-align: center;
+    color: white;
+
+}
+
+.container-center {
+    background: url("../img/rect.svg") no-repeat bottom center;
+    background-size: contain;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: space-around;
+    /* border: 2px solid red; */
+    width: 60%;
+    margin-right: 60px;
+    height: 75%;
+    box-sizing: border-box;
+    padding: 150px 100px 40px;
+    font-size: 15px;
+}
+
+
+.container-center h1 {
+    font-family: 'Open Sans', sans-serif;;
+    font-weight: 800;
+    font-size: 75px;
+    margin: 0px;
+    z-index: 2;
+}
+
+.container-center h3 {
+    font-family: 'Open Sans';
+    font-weight: 650;
+    margin: 0px;
+    z-index: 2;
+
+}
+
+.container-center p {
+    font-size:  18px;
+    margin: 0px;
+}
+
+#yoyo-master-img {
+    position: absolute;
+    bottom: 0;
+    left: 10%;
+    z-index: 1;
+    width: 80%;
+}
+
+#play {
+    width: 230px;
+    height: 100px;
+    z-index: 2;
+    background: #3ceb3c;
+    border: none;
+    text-decoration: none;
+    outline: none;
+    box-shadow: 6px 6px 1px black;
+    font-size: 2.5em;
+    font-family: 'Permanent Marker';
+    cursor: pointer;
+    transition: all .2s ease;
+    z-index: 3;
+}
+
+
+#play:hover {
+    background: #00ff0d;
+    transform: scale(1.25) rotate(-5deg);
+
+}
+
+#reset {
+    width: 150px;
+    height: 60px;
+    z-index: 2;
+    background: #777777;
+    border: none;
+    text-decoration: none;
+    outline: none;
+    box-shadow: 6px 6px 1px black;
+    font-size: 2.0em;
+    font-family: 'Permanent Marker';
+    cursor: pointer;
+    transition: all .2s ease;
+}
+
+#reset:hover {
+    background: #f00d0d;
+    transform: scale(1.1);
+}
+
+
+/* ========================================== Classes JAVASCRIPT ========================================== */
+
+/* Controle de visibilidade (das palmas) */
+
+.visible {
+    opacity: 100%;
+}
+
+.hidden {
+    opacity: 0%;
+}
+
+/*  Classe de destaque em roxo */
+.purple-highlight {
+    color: #5a2ec9;
+}
+
+
+/* Button states */
+
+#play.disabled{
+    background: grey;
+    cursor: default;
+}
+
+#play.disabled:hover{
+    background:grey;
+    transform: scale(0.9);
+}

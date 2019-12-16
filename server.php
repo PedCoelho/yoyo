@@ -20,7 +20,10 @@ setlocale (LC_ALL,'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
 
 date_default_timezone_set("America/Sao_Paulo");
 
-$TimeStampLocal = "<div class='wrapper' data-aos='fade-up'><h2>" . ucwords(strftime('%A ')) . strftime('%d de ') . ucwords(strftime('%B')) . " de " . strftime('%Y') . " - " . (date("H")-1) . ":". date("i:") . date("sa") . "</h2>";
+// DATA-AOS REMOVIDO
+// $TimeStampLocal = "<div class='wrapper' data-aos='fade-up'><h2>" . ucwords(strftime('%A ')) . strftime('%d de ') . ucwords(strftime('%B')) . " de " . strftime('%Y') . " - " . (date("H")-1) . ":". date("i:") . date("sa") . "</h2>";
+
+$TimeStampLocal = "<div class='wrapper'><h2>" . ucwords(strftime('%A ')) . strftime('%d de ') . ucwords(strftime('%B')) . " de " . strftime('%Y') . " - " . (date("H")-1) . ":". date("i:") . date("sa") . "</h2>";
 
 echo $TimeStampLocal;
 
@@ -30,21 +33,24 @@ file_put_contents('esp8266.html', $TimeStampLocal, FILE_APPEND);
 
 
 
-   if( $_REQUEST["Message"] || $_REQUEST["timespan"] || $_REQUEST["Pontos"] ) 
+   if( $_REQUEST["Message"] || $_REQUEST["Timespan"] || $_REQUEST["Pontos"] ) 
    {
    echo " Mensagem: ". $_REQUEST['Message']. "<br />";
-   // echo " Timespan: ". $_REQUEST['Timespan']. "<br />";
+   echo " Timespan: ". $_REQUEST['Timespan']. "<br />";
    // echo " Pontos: ". $_REQUEST['Pontos']. "<br />";
    }
 	
 $var1 = $_REQUEST['Message'];
 $var2 = $_REQUEST['Timespan'];
-$var2 = $_REQUEST['Pontos'];
+$var3 = ceil(($var2*$var2)/100000);
+
+echo $var1;
+echo $var2;
 
 $WriteMyRequest=
-"<div class='container'><h3 class='titulo'>Yo-Yo Girando!</h3>" . "<p>" . $var1 . "</p>" . "</div></div>" ;
-// .
-// "<div class='container'><h3 class='titulo'>Tempo girando:</h3>" . "<p>" . $var2 . "</p>" . "</div>" .
+"<div class='container'><h3 class='titulo'>Yo-Yo Girando!</h3>" . "<p>" . $var1 . "</p>".
+"<h3 class='titulo'>Tempo girando:</h3>" . "<p>" . $var2 . " ms</p>" .
+"<h3 class='titulo'>Pontos:</h3>" . "<p>" . $var3 . "</p>" . "</div></div>";
 // "<div class='container'><h3 class='titulo'>Pontos:</h3>" . "<p>" . $var3 . "</p>" . "</div>";
 
 file_put_contents('esp8266.html', $WriteMyRequest, FILE_APPEND);

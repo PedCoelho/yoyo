@@ -1,0 +1,16 @@
+<meta charset="UTF-8">
+		<title>Curriculum Vitae</title>
+		<meta content="Curriculo de desenvolvedor fullstack" name="Description">
+		<meta content="Bruno Diorio" itemprop="name">
+		<meta content="Bruno Diorio" property="og:title">
+		<meta content="Bruno Diorio" property="og:site_name">
+		<meta content="256" property="og:image:height">
+		<meta content="256" property="og:image:width">
+		<meta content="Bruno Diorio Andrade Affonso Curriculo Desenvolvedor Fullstack" itemprop="description">
+		<meta content="Bruno Diorio Andrade Affonso Currículo Desenvolvedor Fullstack" property="og:description">
+
+		<meta content="http://brunodiorio.com.br/img/mug-hot-solid.png" itemprop="image">
+		<meta content="http://brunodiorio.com.br/img/mug-hot-solid.png" property="og:image">
+
+
+		<link href="img/mug-hot-solid.png" rel="shortcut icon">
