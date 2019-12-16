@@ -20,7 +20,6 @@ $myObj -> Message = $write1;
 $myObj -> Timespan = $write2;
 $myObj -> Points = $write3;
 
-//tenho que resolver outras coisas antes de fazer esse procedimento
 $myJson = json_encode($myObj);
 
 $currentJson = file_get_contents('esp8266.json');

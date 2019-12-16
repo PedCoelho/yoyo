@@ -12,15 +12,19 @@ playButton.addEventListener('click', play);
 resetButton.addEventListener('click', resetScore);
 document.addEventListener('DOMContentLoaded', initialize);
 
+
 function play() {
     if (!gameStarted) {
         playButton.classList.add('disabled');
         badgesOut();
         resetScore();
         clock.start();
-
         gameStarted = true;
-    } else {}
+    } else {
+
+        return null;
+
+    }
 }
 
 function initialize() {
@@ -97,26 +101,53 @@ function highlight(dadoJson, jogadaElement) {
 //falta remover a classe disabled do playButton ao terminar o jogo e reverter gameStarted
 
 
-if (!gameStarted) {
-    playButton.classList.remove('disabled');
-}
-
 function resetScore() {
     var placar1 = $(sectionPlayer1).children('.placar-total').children('h1')[0];
     var placar2 = $(sectionPlayer2).children('.placar-total').children('h1')[0];
 
     if (gameStarted) {
         playButton.classList.remove('disabled');
-        clock.reset(function() {});
-        console.log('reset');
         gameStarted = false;
+        clock.setTime(180);
+        clock.stop();
+        cleanUp();
+        badgesIn();
+    } else {
+        placar1.innerHTML = "0";
+        placar2.innerHTML = "0";
+        placar1.classList.remove('hidden');
+        placar2.classList.remove('hidden');
     }
-
-    // cleanUp();
-    placar1.innerHTML = "0";
-    placar2.innerHTML = "0";
-    placar1.classList.remove('hidden');
-    placar2.classList.remove('hidden');
-
 }
 
+function victory() {
+    var winner;
+
+    if (score1 > score2) {
+        winner = 'Player 1';
+    } else if (score2 > score1) {
+        winner = 'Player 2';
+    } else if (score1 == score2) {
+        winner = 'Empate!';
+    } else {
+        winner = undefined;
+    }
+
+    if (clock.getTime() == 0) {
+        console.log('Jogo encerrado. Vencedor = ' + winner);
+    } else {
+        return console.log('Countdown não finalizado');
+    }
+}
+
+function updateScore(ponto, player) {
+
+    player += ponto;
+
+    if (player == score2) {
+        sectionPlayer2[0].firstElementChild.innerHTML = '<h1>' + player + '<h1>';
+    } else if (player == score1) {
+        sectionPlayer1[0].firstElementChild.innerHTML = '<h1>' + player + '<h1>';
+    }
+
+}
