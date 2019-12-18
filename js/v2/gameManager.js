@@ -1,9 +1,16 @@
 var gameStarted = false;
 var playButton = document.getElementById('play');
 var resetButton = document.getElementById('reset');
+
 var sectionPlayer1 = $('.player1-section');
 var sectionPlayer2 = $('.player2-section');
+var placar1 = $(sectionPlayer1).children('.placar-total').children('h1')[0];
+var placar2 = $(sectionPlayer2).children('.placar-total').children('h1')[0];
+var jogadas1 = $(sectionPlayer1).children('.container-pontos')[0];
+var jogadas2 = $(sectionPlayer2).children('.container-pontos')[0];
+
 var playerBadges = $('body>img');
+var monitoring;
 
 var score1 = 0;
 var score2 = 0;
@@ -18,12 +25,16 @@ function play() {
         playButton.classList.add('disabled');
         badgesOut();
         resetScore();
+        showScore();
         clock.start();
+        // ATENÇÃO \_(O.O)_/ em teste 
+        momentoAtual = moment();
+        monitoring = setInterval('fetchJson(url)', 100);
         gameStarted = true;
+
     } else {
 
         return null;
-
     }
 }
 
@@ -57,10 +68,7 @@ function badgesOut() {
 
 
 function cleanUp() {
-    var placar1 = $(sectionPlayer1).children('.placar-total').children('h1')[0];
-    var placar2 = $(sectionPlayer2).children('.placar-total').children('h1')[0];
-    var jogadas1 = $(sectionPlayer1).children('.container-pontos')[0];
-    var jogadas2 = $(sectionPlayer2).children('.container-pontos')[0];
+
     var promise = new Promise(function (resolve, reject) {
 
         function fade() {
@@ -72,7 +80,7 @@ function cleanUp() {
 
         fade();
 
-        setTimeout(() => resolve(), 210);
+        setTimeout(() => resolve(), 10);
     });
     promise.then(function () {
         placar1.innerHTML = "";
@@ -87,37 +95,27 @@ function fadeOut(el) {
 } // classe de destaque para pontuações altas
 
 
-//Falta implementar
-
-function highlight(dadoJson, jogadaElement) {
-    if (dadoJson.Pontos >= 30) {
-        let palmasElement = $(jogadaElement).children("img");
-        jogadaElement.classList.add('purple-highlight');
-        palmasElement.classList.add('visible');
-        palmasElement.classList.remove('hidden');
-    }
-}
-
 //falta remover a classe disabled do playButton ao terminar o jogo e reverter gameStarted
 
 
 function resetScore() {
-    var placar1 = $(sectionPlayer1).children('.placar-total').children('h1')[0];
-    var placar2 = $(sectionPlayer2).children('.placar-total').children('h1')[0];
 
+    
     if (gameStarted) {
         playButton.classList.remove('disabled');
-        gameStarted = false;
         clock.setTime(180);
         clock.stop();
+        gameStarted = false;
         cleanUp();
         badgesIn();
-    } else {
-        placar1.innerHTML = "0";
-        placar2.innerHTML = "0";
-        placar1.classList.remove('hidden');
-        placar2.classList.remove('hidden');
+        clearInterval(monitoring);
+        
     }
+    
+    renderedData = [];
+    placar1.innerHTML = "0";
+    placar2.innerHTML = "0";
+    
 }
 
 function victory() {
@@ -136,18 +134,26 @@ function victory() {
     if (clock.getTime() == 0) {
         console.log('Jogo encerrado. Vencedor = ' + winner);
     } else {
+        clearInterval(monitoring);
         return console.log('Countdown não finalizado');
     }
 }
 
-function updateScore(ponto, player) {
+function updateScore(ponto, playerScore) {
 
-    player += ponto;
+    playerScore += ponto;
 
-    if (player == score2) {
-        sectionPlayer2[0].firstElementChild.innerHTML = '<h1>' + player + '<h1>';
-    } else if (player == score1) {
-        sectionPlayer1[0].firstElementChild.innerHTML = '<h1>' + player + '<h1>';
+    if (playerScore == score2) {
+        sectionPlayer2[0].firstElementChild.innerHTML = '<h1>' + playerScore + '<h1>';
+    } else if (playerScore == score1) {
+        sectionPlayer1[0].firstElementChild.innerHTML = '<h1>' + playerScore + '<h1>';
     }
 
+}
+
+function showScore() {
+    placar1.classList.remove('hidden');
+    placar2.classList.remove('hidden');
+    jogadas1.classList.remove('hidden');
+    jogadas2.classList.remove('hidden');
 }

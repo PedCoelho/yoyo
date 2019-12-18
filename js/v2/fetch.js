@@ -1,16 +1,86 @@
-
 var url = "http://projetosmjv.com.br/esp8266/new_php/new-provider.php";
 const PLAYER1 = 1;
 const PLAYER2 = 2;
 var renderedData = [];
 var data;
 
+//para controlar renderização ao longo do tempo
+var momentoAtual;
 
-setInterval('fetchJSON(url)', 200);    
+//APENAS PARA TESTE / DESENVOLVIMENTO
+// document.addEventListener('keydown', function(){
+//     if(event.key = 'm'){
+//         console.log('M pressionado');
+//         momentoAtual = moment();
+//     }
+// });
+
+function fetchJson(url) {
+    $.getJSON(url, function (json) {
+        data = json;
+        renderJSON(getCurrentData(data));
+        if (filteredData.length > 0) {
+            //nada implementado ainda -> precisa de alguma coisa?
+        }
+    });
+}
+
+function renderJSON(data) {
+
+    filteredData = data.filter(item => !containsObject(item, renderedData));
+
+    for (var el in filteredData) {
+
+        //-------- ponto ---------//
+        let ponto = filteredData[el].Points;
+
+        //-------- pai de todos --------//
+
+        //-------- elemento pai --------//
+        let jogada = document.createElement("div");
+        jogada.className = 'jogada';
+        jogada.setAttribute('data-aos', 'fade-up');
+
+        //-------- filho <p></p> --------//
+        let textoPonto = document.createElement('p');
+        textoPonto.innerHTML = '+ ' + ponto + ' pts';
+
+        //-------- filho <img> --------//
+        let palmasImg = document.createElement('img');
+        palmasImg.classList.add('hidden');
+        palmasImg.setAttribute('src', './img/palmas.png');
+
+        jogada.appendChild(textoPonto);
+        jogada.appendChild(palmasImg);
+
+        if (filteredData[el].Player == PLAYER1) {
+            jogadas1.appendChild(jogada);
+            updateScore(filteredData[el].Points, score1);
+        } else if (filteredData[el].Player == PLAYER2) {
+            jogadas2.appendChild(jogada);
+            updateScore(filteredData[el].Points, score2);
+        } else if (filteredData[el].Player == null) {
+            jogadas1.appendChild(jogada);
+            updateScore(filteredData[el].Points, score1);
+        }
+        renderedData.push(filteredData[el]);
+    }
+}
 
 
+//Falta implementar
+
+function highlight(dadoJson, jogadaElement) {
+    if (dadoJson.Pontos >= 30) {
+        let palmasElement = $(jogadaElement).children("img");
+        jogadaElement.classList.add('purple-highlight');
+        palmasElement.classList.add('visible');
+        palmasElement.classList.remove('hidden');
+    }
+}
+
+//filtro do que já foi renderizado antes
 function containsObject(obj, list) {
- 
     for (i = 0; i < list.length; i++) {
         if (list[i].Time === obj.Time) {
             return true;
@@ -19,51 +89,10 @@ function containsObject(obj, list) {
     return false;
 }
 
-function fetchJSON(url){
-    $.getJSON(url, function (json) {
-        data = JSON.parse(json);
-        renderJSON(data);
-        if(filteredData.length > 0){
-            scrolled = false;
-            updateScroll();
-        }
-    });
-}
-
-function renderJSON(data){
-    wrappers = document.getElementsByClassName("wrapper");
-    body = document.getElementById("corpo");
-
-    lastWrapper = wrappers.length > 0 ? wrappers[-1] : null;
-    filteredData = data.filter(item => !containsObject(item, renderedData));
-
-    // console.log('rendered', renderedData);
-    // console.log('filtered', filteredData);
-
-    for(var el in filteredData){
-        wrapper = document.createElement("div");
-        wrapper.className = 'wrapper';
-        wrapper.setAttribute('data-aos', 'fade-up');
-        wrapper.innerHTML = filteredData[el].Time;
-
-        container = document.createElement("div");
-        container.className = 'container';
-        container.innerHTML = filteredData[el].Message + filteredData[el].Timespan + filteredData[el].Points;
-
-        wrapper.appendChild(container);
-
-        if(filteredData[el].Player == PLAYER1){
-            wrapper.className += 'playerOne';
-        }else if(filteredData[el].Player == PLAYER2){
-            wrapper.className += 'playerTwo'; 
-        }
-
-        if (lastWrapper) {
-            $(lastWrapper).after(wrapper);
-        }else{
-            $(wrapper).appendTo(body);
-        }
-
-        renderedData.push(filteredData[el]);
-    }
+//função de seleção de dados atuais
+function getCurrentData(data) {
+    let currentData = [];
+    currentData = data.filter(item => moment(item.Time) >= momentoAtual);
+    console.log(currentData);
+    return currentData;
 }
