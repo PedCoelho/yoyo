@@ -1,3 +1,7 @@
+html {
+    overflow: hidden;
+}
+
 body {
     background: url("../img/background.svg") no-repeat;
     background-size: cover;
@@ -78,12 +82,12 @@ h1 {
 }
 
 .second-badge {
-    right:70px;
+    right: 70px;
 }
 
 .placar-total {
     font-size: 150px;
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Open Sans';
     font-weight: 800;
     cursor: default;
     transition: all .2s ease;
@@ -173,7 +177,7 @@ h1 {
 
 
 .container-center h1 {
-    font-family: 'Open Sans', sans-serif;;
+    font-family: 'Open Sans', sans-serif;
     font-weight: 800;
     font-size: 75px;
     margin: 0px;
@@ -189,7 +193,7 @@ h1 {
 }
 
 .container-center p {
-    font-size:  18px;
+    font-size: 18px;
     margin: 0px;
 }
 
@@ -244,6 +248,116 @@ h1 {
     transform: scale(1.1);
 }
 
+#victoryHolder > section {
+    background: rgba(0, 0, 0, 0.8);
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    /* border: 4px solid red; */
+    z-index: 10;
+transition: all .2s ease;
+pointer-events:none;
+
+}
+
+.star-box{
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    width: 80vw;
+    height: 100vh;
+    overflow: hidden;
+    /* border: 4px solid yellow; */
+
+}
+
+#victoryHolder img
+ {
+    position: absolute;
+    /* border: 2px solid white; */
+}
+
+.big-star {
+    top: -150px;
+    left: 30%;
+    height: 100%;
+    transform:translate(-30%) rotate(-20deg);
+    pointer-events: none;
+
+}
+
+.star {
+    right: 0;
+    pointer-events: none;
+
+}
+
+.purple-stars{
+    filter: hue-rotate(-96deg) brightness(150%) grayscale(50%);
+    
+}
+
+.star:nth-of-type(2){
+
+    bottom: -100px;
+    right: 10%;
+    transform: translate(-10%) rotate(10deg);
+    z-index: 2;
+}
+
+.victory-text{
+    top: 35%;
+    left: 50%;
+    z-index: 3;
+    width: 35%;
+    transform: translate(-50%,-35%);
+    pointer-events: none;
+
+}
+.character {
+    height: 70vh;
+    right: 0px;
+    bottom: 0px;
+    pointer-events: none;
+
+}
+
+.retry{
+    z-index: 13;
+    right: 30%;
+    bottom: 100px;
+    width: 200px;
+    transform: translate(-50%);
+    cursor:pointer;
+    transition: all .2s ease;
+    pointer-events:all ;
+
+}
+
+.retry:hover{
+    animation: pulse .5s infinite alternate;
+}
+
+
+@keyframes pulse {
+    from {
+        transform:translate(-50%, 0%) scale(1);
+    }
+
+    to {
+        transform:translate(-50%,-10%) scale(1.3);
+    }
+}
+
+@-webkit-keyframes pulse {
+    from {
+        transform:translate(-50%, 0%) scale(1);
+    }
+
+    to {
+        transform:translate(-50%,-10%) scale(1.3);
+    }
+}
 
 /* ========================================== Classes JAVASCRIPT ========================================== */
 
@@ -255,7 +369,15 @@ h1 {
 
 .hidden {
     opacity: 0%;
+    pointer-events: none !important;
+
 }
+
+.hidden>.star-box>.retry{
+    pointer-events: none !important;
+
+}
+
 
 /*  Classe de destaque em roxo */
 .purple-highlight {
@@ -265,12 +387,12 @@ h1 {
 
 /* Button states */
 
-#play.disabled{
+#play.disabled {
     background: grey;
     cursor: default;
 }
 
-#play.disabled:hover{
-    background:grey;
+#play.disabled:hover {
+    background: grey;
     transform: scale(0.9);
 }

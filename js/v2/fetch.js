@@ -1,4 +1,4 @@
-var url = "http://projetosmjv.com.br/esp8266/new_php/new-provider.php";
+var url = "http://projetosmjv.com.br/esp8266/new-provider.php";
 const PLAYER1 = 1;
 const PLAYER2 = 2;
 var renderedData = [];
@@ -17,11 +17,14 @@ var momentoAtual;
 
 function fetchJson(url) {
     $.getJSON(url, function (json) {
+        if(!isRunning) {
+            return
+        }
+
         data = json;
         renderJSON(getCurrentData(data));
-        if (filteredData.length > 0) {
-            //nada implementado ainda -> precisa de alguma coisa?
-        }
+        
+        fetchJson(url);
     });
 }
 
@@ -55,13 +58,16 @@ function renderJSON(data) {
 
         if (filteredData[el].Player == PLAYER1) {
             jogadas1.appendChild(jogada);
-            updateScore(filteredData[el].Points, score1);
+            updateScore(filteredData[el].Points, 1);
+            highlight(filteredData[el].Points, jogada, palmasImg);
         } else if (filteredData[el].Player == PLAYER2) {
             jogadas2.appendChild(jogada);
-            updateScore(filteredData[el].Points, score2);
+            updateScore(filteredData[el].Points, 2);
+            highlight(filteredData[el].Points, jogada, palmasImg);
+
         } else if (filteredData[el].Player == null) {
             jogadas1.appendChild(jogada);
-            updateScore(filteredData[el].Points, score1);
+            updateScore(filteredData[el].Points, 1);
         }
         renderedData.push(filteredData[el]);
     }
@@ -70,12 +76,11 @@ function renderJSON(data) {
 
 //Falta implementar
 
-function highlight(dadoJson, jogadaElement) {
-    if (dadoJson.Pontos >= 30) {
-        let palmasElement = $(jogadaElement).children("img");
-        jogadaElement.classList.add('purple-highlight');
-        palmasElement.classList.add('visible');
-        palmasElement.classList.remove('hidden');
+function highlight(dadoJson, jogadas , palmas) {
+    if (dadoJson >= 350) {
+        jogadas.classList.add('purple-highlight');
+        palmas.classList.remove('hidden');
+        // palmas.classList.add('visible');
     }
 }
 
@@ -93,6 +98,6 @@ function containsObject(obj, list) {
 function getCurrentData(data) {
     let currentData = [];
     currentData = data.filter(item => moment(item.Time) >= momentoAtual);
-    console.log(currentData);
+    // console.log(currentData);
     return currentData;
 }

@@ -1,82 +1,41 @@
 <?php
 
-/*
-  ESP8266: send data to your Domain(or mine)
-  Embedded-iot.net/dht11/dataCollector.php
-
-  Uses POST command to send DHT data to a designated website
-  The circuit:
-  * DHT
-  * Post to Domain
-
-   Stephen Borsay
-   Embedded-iot.net
-   www.udemy.com/all-about-arduino-wireless
-   https://www.hackster.io/detox
-   https://github.com/sborsay/Arduino_Wireless
-*/
-
 setlocale (LC_ALL,'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
-
 date_default_timezone_set("America/Sao_Paulo");
 
-// DATA-AOS REMOVIDO
-// $TimeStampLocal = "<div class='wrapper' data-aos='fade-up'><h2>" . ucwords(strftime('%A ')) . strftime('%d de ') . ucwords(strftime('%B')) . " de " . strftime('%Y') . " - " . (date("H")-1) . ":". date("i:") . date("sa") . "</h2>";
-
-$TimeStampLocal = "<div class='wrapper'><h2>" . ucwords(strftime('%A ')) . strftime('%d de ') . ucwords(strftime('%B')) . " de " . strftime('%Y') . " - " . (date("H")-1) . ":". date("i:") . date("sa") . "</h2>";
-
-echo $TimeStampLocal;
-
-$TimeStampLocal = mb_convert_encoding($TimeStampLocal, 'UTF-8');
-
-file_put_contents('esp8266.html', $TimeStampLocal, FILE_APPEND);
-
-
-
-   if( $_REQUEST["Message"] || $_REQUEST["Timespan"] || $_REQUEST["Pontos"] ) 
-   {
-   echo " Mensagem: ". $_REQUEST['Message']. "<br />";
-   echo " Timespan: ". $_REQUEST['Timespan']. "<br />";
-   // echo " Pontos: ". $_REQUEST['Pontos']. "<br />";
-   }
+$timestamp = "<h2>" . ucwords(strftime('%A ')) . strftime('%d de ') . ucwords(strftime('%B')) . " de " . strftime('%Y') . " - " . (date("H")-1) . ":". date("i:") . date("sa") . "</h2>";
+$timestamp = mb_convert_encoding($timestamp, 'UTF-8');
 	
 $var1 = $_REQUEST['Message'];
 $var2 = $_REQUEST['Timespan'];
 $var3 = ceil(($var2*$var2)/100000);
 
-echo $var1;
-echo $var2;
+$write1="<h3 class='titulo'>Yo-Yo Girando!</h3>" . "<p>" . $var1 . "</p>";
+$write2="<h3 class='titulo'>Tempo girando:</h3>" . "<p>" . $var2 . " ms</p>";
+$write3="<h3 class='titulo'>Pontos:</h3>" . "<p>" . $var3 . "</p>";
 
-$WriteMyRequest=
-"<div class='container'><h3 class='titulo'>Yo-Yo Girando!</h3>" . "<p>" . $var1 . "</p>".
-"<h3 class='titulo'>Tempo girando:</h3>" . "<p>" . $var2 . " ms</p>" .
-"<h3 class='titulo'>Pontos:</h3>" . "<p>" . $var3 . "</p>" . "</div></div>";
-// "<div class='container'><h3 class='titulo'>Pontos:</h3>" . "<p>" . $var3 . "</p>" . "</div>";
+$myObj = new stdClass();
+$myObj -> Time = $timestamp;
+$myObj -> Message = $write1;
+$myObj -> Timespan = $write2;
+$myObj -> Points = $write3;
 
-file_put_contents('esp8266.html', $WriteMyRequest, FILE_APPEND);
+//tenho que resolver outras coisas antes de fazer esse procedimento
+$myJson = json_encode($myObj);
 
-// appendHTML();
+$currentJson = file_get_contents('esp8266.json');
 
-// function appendHTML() {
- 
-// $html = file_get_contents('esp8266.html');
+if(empty($currentJson)){
+    file_put_contents('esp8266.json', $myJson, FILE_APPEND);
+    echo file_get_contents('esp8266.json');
+}else{
+    $newJson =  $currentJson . "," . $myJson;
+    file_put_contents('esp8266.json', $newJson);
+    echo file_get_contents('esp8266.json');
+}
 
-// libxml_use_internal_errors(true);
-
-// $doc = new DOMDocument(); 
-// $doc->loadHTML($html);
-
-// //get the element you want to append to
-// $body = $doc->getElementById('corpo');
-// //create the fragment
-// $fragment = $doc->createDocumentFragment();
-// //add content to fragment
-// $fragment->appendXML($WriteMyRequest);
-// //actually append the element
-// $body->appendChild($fragment);
-
-// echo $doc->saveHTML();
-
-// }
+//último processo
+$updatedJson = "[" . file_get_contents('esp8266.json') . "]";
+echo $updatedJson;
 
 ?>

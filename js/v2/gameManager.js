@@ -9,27 +9,33 @@ var placar2 = $(sectionPlayer2).children('.placar-total').children('h1')[0];
 var jogadas1 = $(sectionPlayer1).children('.container-pontos')[0];
 var jogadas2 = $(sectionPlayer2).children('.container-pontos')[0];
 
+var retry = document.getElementsByClassName("retry");
+
 var playerBadges = $('body>img');
-var monitoring;
 
 var score1 = 0;
 var score2 = 0;
+
+var isRunning = false;
 
 playButton.addEventListener('click', play);
 resetButton.addEventListener('click', resetScore);
 document.addEventListener('DOMContentLoaded', initialize);
 
+for (var i = 0; i < retry.length; i++) {
+    retry[i].addEventListener('click', tryAgain);
+}
 
 function play() {
     if (!gameStarted) {
         playButton.classList.add('disabled');
-        badgesOut();
+        momentoAtual = moment();
         resetScore();
         showScore();
+        badgesOut();
         clock.start();
-        // ATENÇÃO \_(O.O)_/ em teste 
-        momentoAtual = moment();
-        monitoring = setInterval('fetchJson(url)', 100);
+        isRunning = true;
+        fetchJson(url);
         gameStarted = true;
 
     } else {
@@ -61,33 +67,20 @@ function badgesIn() {
 
 function badgesOut() {
     playerBadges[0].removeAttribute('style');
-    playerBadges[0].removeAttribute('style');
-    playerBadges[1].removeAttribute('style');
     playerBadges[1].removeAttribute('style');
 }
 
 
 function cleanUp() {
 
-    var promise = new Promise(function (resolve, reject) {
+    fadeOut(placar1);
+    fadeOut(placar2);
+    fadeOut(jogadas1);
+    fadeOut(jogadas2);
 
-        function fade() {
-            fadeOut(placar1);
-            fadeOut(placar2);
-            fadeOut(jogadas1);
-            fadeOut(jogadas2);
-        }
+    jogadas1.innerHTML = "";
+    jogadas2.innerHTML = "";
 
-        fade();
-
-        setTimeout(() => resolve(), 10);
-    });
-    promise.then(function () {
-        placar1.innerHTML = "";
-        placar2.innerHTML = "";
-        jogadas1.innerHTML = "";
-        jogadas2.innerHTML = "";
-    });
 }
 
 function fadeOut(el) {
@@ -100,26 +93,26 @@ function fadeOut(el) {
 
 function resetScore() {
 
-    
     if (gameStarted) {
         playButton.classList.remove('disabled');
-        clock.setTime(180);
+        clock.setTime(60);
         clock.stop();
         gameStarted = false;
         cleanUp();
         badgesIn();
-        clearInterval(monitoring);
-        
+        renderedData = [];
+        isRunning = false;
+        score1 = 0;
+        score2 = 0;
+        // momentoAtual = moment();
     }
-    
-    renderedData = [];
-    placar1.innerHTML = "0";
-    placar2.innerHTML = "0";
-    
+
 }
 
 function victory() {
     var winner;
+
+    isRunning = false;
 
     if (score1 > score2) {
         winner = 'Player 1';
@@ -132,26 +125,46 @@ function victory() {
     }
 
     if (clock.getTime() == 0) {
-        console.log('Jogo encerrado. Vencedor = ' + winner);
+
+        if (winner == 'Player 1') {
+            winscreen = $('#victory-screen-1')[0];
+            winscreen.classList.remove('hidden');
+        } else if (winner == 'Player 2') {
+            winscreen = $('#victory-screen-2')[0];
+            winscreen.classList.remove('hidden');
+        } else {
+            console.log('Jogo encerrado. Vencedor = ' + winner);
+        }
+
     } else {
-        clearInterval(monitoring);
-        return console.log('Countdown não finalizado');
+        return console.log('Jogo resetado. Sem vencedor.');
     }
 }
 
-function updateScore(ponto, playerScore) {
-
-    playerScore += ponto;
-
-    if (playerScore == score2) {
-        sectionPlayer2[0].firstElementChild.innerHTML = '<h1>' + playerScore + '<h1>';
-    } else if (playerScore == score1) {
-        sectionPlayer1[0].firstElementChild.innerHTML = '<h1>' + playerScore + '<h1>';
+function updateScore(ponto, player) {
+    if (player == 2) {
+        score2 += ponto;
+        placar2.innerHTML = score2;
+    } else if (player == 1) {
+        score1 += ponto;
+        placar1.innerHTML = score1;
     }
 
+}
+
+function tryAgain(){
+    //dívida tecnica (precisa melhorar)
+    winscreen = $('#victory-screen-1')[0];
+    winscreen2 = $('#victory-screen-2')[0];
+    winscreen.classList.add('hidden');
+    winscreen2.classList.add('hidden');
+
+    resetScore();
 }
 
 function showScore() {
+    placar1.innerHTML = 0;
+    placar2.innerHTML = 0;
     placar1.classList.remove('hidden');
     placar2.classList.remove('hidden');
     jogadas1.classList.remove('hidden');
