@@ -18,6 +18,8 @@ var score2 = 0;
 
 var isRunning = false;
 
+var estrelas;
+
 playButton.addEventListener('click', play);
 resetButton.addEventListener('click', resetScore);
 document.addEventListener('DOMContentLoaded', initialize);
@@ -129,15 +131,19 @@ function victory() {
         if (winner == 'Player 1') {
             winscreen = $('#victory-screen-1')[0];
             winscreen.classList.remove('hidden');
+            estrelas = getStars(winscreen);
         } else if (winner == 'Player 2') {
             winscreen = $('#victory-screen-2')[0];
             winscreen.classList.remove('hidden');
+            estrelas = getStars(winscreen);
         } else {
-            console.log('Jogo encerrado. Vencedor = ' + winner);
+            winscreen = $('#tie-screen')[0];
+            winscreen.classList.remove('hidden');
+            estrelas = getStars(winscreen);
         }
-
+        estrelas.play();
     } else {
-        return console.log('Jogo resetado. Sem vencedor.');
+        return console.log('Jogo empatado.');
     }
 }
 
@@ -156,10 +162,13 @@ function tryAgain(){
     //dívida tecnica (precisa melhorar)
     winscreen = $('#victory-screen-1')[0];
     winscreen2 = $('#victory-screen-2')[0];
+    winscreen3 = $('#tie-screen')[0];
+
     winscreen.classList.add('hidden');
     winscreen2.classList.add('hidden');
-
+    winscreen3.classList.add('hidden');
     resetScore();
+    estrelas.pause();
 }
 
 function showScore() {

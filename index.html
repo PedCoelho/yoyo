@@ -13,7 +13,8 @@
     <link rel="icon" href="./favicon.ico" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,800|Permanent+Marker&display=swap"
         rel="stylesheet">
-    <script src="./js/jquery-3.4.1.min.js"></script>
+    <script src="./libs/jquery-3.4.1.min.js"></script>
+    <script src="./libs/anime.min.js"></script>
 </head>
 
 <body>
@@ -22,9 +23,9 @@
     <section id="victoryHolder">
         <section id="victory-screen-1" class="hidden">
             <section class="star-box">
-            <img src="./img/win/red-star.png" alt="" class="big-star">
-            <img src="./img/win/red-star.png" alt="" class="star">
-            <img src="./img/win/red-star.png" alt="" class="star">
+            <img src="./img/win/red-star.png" alt="" class="big-star purple-stars">
+            <img src="./img/win/red-star.png" alt="" class="star purple-stars">
+            <img src="./img/win/red-star.png" alt="" class="star purple-stars">
             <img src="./img/win/venceu-texto-1.png" alt="" class="victory-text">
             <img src="./img/win/retry.png" alt="" class="retry">
         </section>
@@ -32,13 +33,23 @@
         </section>
         <section id="victory-screen-2" class="hidden" >
             <section class="star-box">
-            <img src="./img/win/red-star.png" alt="" class="big-star purple-stars">
-            <img src="./img/win/red-star.png" alt="" class="star purple-stars">
-            <img src="./img/win/red-star.png" alt="" class="star purple-stars">
+            <img src="./img/win/red-star.png" alt="" class="big-star">
+            <img src="./img/win/red-star.png" alt="" class="star">
+            <img src="./img/win/red-star.png" alt="" class="star">
             <img src="./img/win/venceu-texto-2.png" alt="" class="victory-text">
             <img src="./img/win/retry.png" alt="" class="retry">
         </section>
             <img src="./img/win/man.png" alt="" class="character">
+        </section>
+        <section id="tie-screen" class="hidden" >
+            <section class="star-box">
+            <img src="./img/win/red-star.png" alt="" class="big-star">
+            <img src="./img/win/red-star.png" alt="" class="star">
+            <img src="./img/win/red-star.png" alt="" class="star">
+            <img src="./img/win/empate-texto.png" alt="" class="victory-text">
+            <img src="./img/win/retry.png" alt="" class="retry">
+        </section>
+            <img src="./img/win/birb.png" alt="" class="character">
         </section>
 
     </section>
@@ -69,7 +80,6 @@
                 <h3>Não durma no ponto<br>e mostre do que você é capaz!</h3>
                 <p>Você tem <b>1 minuto</b> para deixar o ioiô dormindo por mais tempo do que seu adversário e vencer com mais
                     pontos!</p>
-                <!-- <h1>00:00</h1> -->
                 <div class="clock"></div>
                 <button id="play">JOGAR!</button>
                 <button id="reset">RESET</button>
@@ -115,11 +125,12 @@
         AOS.init();
     </script>
 
-    <script src="./js/v2/flipclock.js"></script>
+    <script src="./libs/flipclock.js"></script>
+    <script src="./libs/moment.js"></script>
     <script src="./js/v2/gameManager.js"></script>
     <script src="./js/v2/clock.js"></script>
-    <script src="./js/v2/moment.js"></script>
     <script src="./js/v2/fetch.js"></script>
+    <script src="./js/v2/animation.js"></script>
 </body>
 
 </html>

@@ -248,19 +248,19 @@ h1 {
     transform: scale(1.1);
 }
 
-#victoryHolder > section {
+#victoryHolder>section {
     background: rgba(0, 0, 0, 0.8);
     position: absolute;
     width: 100vw;
     height: 100vh;
     /* border: 4px solid red; */
     z-index: 10;
-transition: all .2s ease;
-pointer-events:none;
+    transition: all .2s ease;
+    pointer-events: none;
 
 }
 
-.star-box{
+.star-box {
     position: absolute;
     left: 50%;
     transform: translate(-50%);
@@ -271,8 +271,7 @@ pointer-events:none;
 
 }
 
-#victoryHolder img
- {
+#victoryHolder img {
     position: absolute;
     /* border: 2px solid white; */
 }
@@ -281,7 +280,7 @@ pointer-events:none;
     top: -150px;
     left: 30%;
     height: 100%;
-    transform:translate(-30%) rotate(-20deg);
+    transform: translate(-30%) rotate(-20deg);
     pointer-events: none;
 
 }
@@ -292,12 +291,12 @@ pointer-events:none;
 
 }
 
-.purple-stars{
+.purple-stars {
     filter: hue-rotate(-96deg) brightness(150%) grayscale(50%);
-    
+
 }
 
-.star:nth-of-type(2){
+.star:nth-of-type(2) {
 
     bottom: -100px;
     right: 10%;
@@ -305,59 +304,57 @@ pointer-events:none;
     z-index: 2;
 }
 
-.victory-text{
+#victory-screen-1>.star-box>.victory-text {
+    filter: hue-rotate(174deg) brightness(5);
+}
+
+#tie-screen > img.character{
+    width: 42%;
+    height: unset;
+    right: unset;
+
+}
+
+#tie-screen > .star-box > .star, #tie-screen > .star-box > .big-star{
+    filter:hue-rotate(170deg) saturate(3.0)!important;
+}
+
+.victory-text {
     top: 35%;
     left: 50%;
     z-index: 3;
     width: 35%;
-    transform: translate(-50%,-35%);
+    transform: translate(-50%, -35%);
     pointer-events: none;
 
 }
+
 .character {
     height: 70vh;
     right: 0px;
     bottom: 0px;
     pointer-events: none;
-
+transform-origin: 50% 0;
 }
 
-.retry{
+.retry {
     z-index: 13;
     right: 30%;
     bottom: 100px;
     width: 200px;
-    transform: translate(-50%);
-    cursor:pointer;
+    transform: translate(-50%, 0%) scale(1);
+    cursor: pointer;
     transition: all .2s ease;
-    pointer-events:all ;
+    pointer-events: all;
+    transform: translate(-50%, 0%) scale(1);
 
 }
 
-.retry:hover{
-    animation: pulse .5s infinite alternate;
+.retry:hover {
+    bottom: 100px;
+        transform: translate(-50%, -10%) scale(1.3);
 }
 
-
-@keyframes pulse {
-    from {
-        transform:translate(-50%, 0%) scale(1);
-    }
-
-    to {
-        transform:translate(-50%,-10%) scale(1.3);
-    }
-}
-
-@-webkit-keyframes pulse {
-    from {
-        transform:translate(-50%, 0%) scale(1);
-    }
-
-    to {
-        transform:translate(-50%,-10%) scale(1.3);
-    }
-}
 
 /* ========================================== Classes JAVASCRIPT ========================================== */
 
@@ -373,7 +370,7 @@ pointer-events:none;
 
 }
 
-.hidden>.star-box>.retry{
+.hidden>.star-box>.retry {
     pointer-events: none !important;
 
 }
