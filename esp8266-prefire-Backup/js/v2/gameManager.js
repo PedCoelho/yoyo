@@ -11,11 +11,7 @@ var jogadas2 = $(sectionPlayer2).children('.container-pontos')[0];
 
 var retry = document.getElementsByClassName("retry");
 
-// var playerBadges = $('#badge1, #badge2');
-var playerBadges = $('.img-helper1, .img-helper2');
-var fireHolders = $('.fire-holder');
-var fireHolder1 = fireHolders[0];
-var fireHolder2 = fireHolders[1];
+var playerBadges = $('body>img');
 
 var score1 = 0;
 var score2 = 0;
@@ -57,14 +53,12 @@ function initialize() {
 
 function badgesIn() {
     yIn = 300;
-    xIn = 50;
+    xIn = 150;
 
     for (i = 0; i - playerBadges.length; i++) {
         playerBadges[i].style.opacity = 0;
-        playerBadges[i].style.transform = 'scale(1.4)';
-        // playerBadges[i].style.width = '300px';
+        playerBadges[i].style.width = '300px';
         $(playerBadges[i]).fadeTo('slow', 1);
-        
     }
 
     playerBadges[0].style.top = yIn + 'px';
@@ -112,7 +106,6 @@ function resetScore() {
         isRunning = false;
         score1 = 0;
         score2 = 0;
-        killFire(fireHolder1, fireHolder2)
         // momentoAtual = moment();
     }
 
@@ -163,24 +156,6 @@ function updateScore(ponto, player) {
         placar1.innerHTML = score1;
     }
 
-    if (score1 > 400 && score1 > score2){
-        setFire(fireHolder1);
-        killFire(fireHolder2);
-    }else if(score2 > 400 && score2 > score1){
-        setFire(fireHolder2);
-        killFire(fireHolder1);
-    }
-}
-
-function setFire(holder){
-    holder.classList.remove('hidden');
-}
-
-function killFire(holder, holder2){
-    holder.classList.add('hidden');
-    if(holder2){
-    holder2.classList.add('hidden');
-    }
 }
 
 function tryAgain(){
